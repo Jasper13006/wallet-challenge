@@ -1,5 +1,5 @@
+import { movementTypesEnum } from "src/modules/users/dto/wallet-movements.dto";
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, OneToOne } from "typeorm";
-import { MovementType } from "./movementType.entity";
 import { Wallet } from "./wallet.entity";
 import { WalletType } from "./walletType.entity";
 
@@ -11,14 +11,18 @@ export class Movement {
     @Column()
     userId!: number;
 
-    @Column({ type: 'decimal', precision: 9, scale: 8, default: 0, })
+    @Column({ type: 'decimal', precision: 17, scale: 8, default: 0, })
     amount!: number;
 
     @Column()
     walletTypeId!: number;
 
-    @Column()
-    movementTypeId!: number;
+    @Column({
+        type: 'enum',
+        enum: movementTypesEnum,
+        default: movementTypesEnum.deposit,
+      })
+    movementType!: string;
 
     @Column()
     walletId!: number
@@ -38,9 +42,4 @@ export class Movement {
     @ManyToOne(() => Wallet, (wallet) => wallet.id)
     wallet: Wallet;
 
-    @OneToOne(() => WalletType, (walletType) => walletType.id)
-    walletType: WalletType;
-
-    @OneToOne(() => MovementType, (movementType) => movementType.id)
-    movementType: MovementType;
 }

@@ -11,7 +11,7 @@ export class Wallet {
     @Column()
     userId!: number;
 
-    @Column({ type: 'decimal', precision: 9, scale: 8, default: 0, })
+    @Column({ type: 'decimal', precision: 17, scale: 8, default: 0, })
     balance!: number;
 
     @Column()
