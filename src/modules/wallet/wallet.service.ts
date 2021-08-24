@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { patchMovement, patchResponse } from '../users/dto/wallet-movements.dto';
+import { patchMovement, patchResponse, ServiceListMovementDto } from './dto/wallet-movements.dto';
 import { CreateAllWalletsDto, CreateWalletDto } from './dto/create-wallet.dto';
-import { PersistMovementDto } from './dto/movement.dto';
-import { UpdateWalletDto } from './dto/update-wallet.dto';
-import { Wallet } from './entities';
+import { PersistMovementDto } from './dto/wallet-movements.dto';
+import { Movement, Wallet } from './entities';
 import { MovementRepository, WalletRepository, WalletTypeRepository } from './wallet.repository';
+import { createPagination } from 'src/common/createPagination';
+import { ResponsePaginationDto } from './dto/response-pagination';
 
 @Injectable()
 export class WalletService {
@@ -85,6 +86,37 @@ export class WalletService {
       }, HttpStatus.NOT_FOUND)
     }
     return wallet
+  }
+
+  async getMovementOfAWallet(query: ServiceListMovementDto): Promise<ResponsePaginationDto> {
+    let queryWallet: { userId: number, walletName?: string } = { userId: query.userId }
+    query.walletType ? queryWallet.walletName = query.walletType : ''
+    const wallets = await this.walletRepository.find({
+      where: queryWallet
+    })
+    if (wallets.length === 0) {
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: `There are no wallets for that user`
+      }, HttpStatus.NOT_FOUND)
+    }
+
+    const where: {
+      userId: number,
+      walletTypeId?: number,
+      movementType?: string
+    } = {
+      userId: query.userId
+    }
+    wallets.length === 1 ? where.walletTypeId = wallets[0].walletTypeId : ''
+    query.movementType ? where.movementType = query.movementType : ''
+    const movements = await this.movementRepository.findAndCount({
+      where,
+      take: query.limit,
+      skip: query.offset
+    })
+
+    return createPagination(movements[0], query.limit, query.offset, movements[1],)
   }
 
   async createMovement(data: PersistMovementDto): Promise<void> {

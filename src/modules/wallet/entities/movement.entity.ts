@@ -1,4 +1,4 @@
-import { movementTypesEnum } from "src/modules/users/dto/wallet-movements.dto";
+import { movementTypesEnum } from "src/modules/wallet/dto/wallet-movements.dto";
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, OneToOne } from "typeorm";
 import { Wallet } from "./wallet.entity";
 import { WalletType } from "./walletType.entity";
