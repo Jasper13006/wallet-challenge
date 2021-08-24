@@ -7,7 +7,7 @@ export class WalletType {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true, })
     name!: string;
 
     @Column({ type: 'datetime' })

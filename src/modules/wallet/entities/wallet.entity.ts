@@ -17,6 +17,9 @@ export class Wallet {
     @Column()
     walletTypeId!: number;
 
+    @Column()
+    walletName!: string;
+
     @Column({ type: 'datetime' })
     @CreateDateColumn()
     public createdAt: Date | null;

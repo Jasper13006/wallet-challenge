@@ -17,18 +17,14 @@ export class WalletController {
     return this.walletService.findAll();
   }
 
+  @Get('/create')
+  createWalletType() {
+    return this.walletService.createAllWalletsForUser({userId:1})
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.walletService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWalletDto: UpdateWalletDto) {
-    return this.walletService.update(+id, updateWalletDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.walletService.remove(+id);
-  }
 }
