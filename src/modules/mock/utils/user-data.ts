@@ -1,4 +1,4 @@
-const dataToMock = [
+export const dataToMock = [
     {
         name: 'Ariel',
         lastName: 'Zitronensaft',
