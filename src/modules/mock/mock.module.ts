@@ -8,7 +8,11 @@ import { WalletModule } from '../wallet/wallet.module';
 import { UsersService } from '../users/users.service';
 import { WalletService } from '../wallet/wallet.service';
 import { UserRepository } from '../users/user.repository';
-import { MovementRepository, WalletRepository, WalletTypeRepository } from '../wallet/wallet.repository';
+import {
+  MovementRepository,
+  WalletRepository,
+  WalletTypeRepository,
+} from '../wallet/wallet.repository';
 
 @Module({
   imports: [
@@ -19,10 +23,10 @@ import { MovementRepository, WalletRepository, WalletTypeRepository } from '../w
       UserRepository,
       WalletRepository,
       MovementRepository,
-      WalletTypeRepository
+      WalletTypeRepository,
     ]),
   ],
   controllers: [MockController],
-  providers: [MockService,UsersService,WalletService]
+  providers: [MockService, UsersService, WalletService],
 })
 export class MockModule {}

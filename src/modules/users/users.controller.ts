@@ -21,7 +21,7 @@ export class UsersController {
   @ApiTags('Create Users!')
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-      return await this.usersService.create(createUserDto);
+    return await this.usersService.create(createUserDto);
   }
 
   @ApiTags('Get User!')
@@ -30,5 +30,4 @@ export class UsersController {
     const response = await this.usersService.findOne(+id);
     return response;
   }
-
 }
