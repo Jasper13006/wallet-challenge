@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { WalletService } from './wallet.service';
 import { WalletController } from './wallet.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MovementRepository, MovementTypeRepository, WalletRepository, WalletTypeRepository } from './wallet.repository';
+import { MovementRepository, WalletRepository, WalletTypeRepository } from './wallet.repository';
 
 @Module({
   imports: [
@@ -10,7 +10,6 @@ import { MovementRepository, MovementTypeRepository, WalletRepository, WalletTyp
       WalletRepository,
       WalletTypeRepository,
       MovementRepository,
-      MovementTypeRepository,
     ])
   ],
   controllers: [WalletController],
