@@ -1,19 +1,29 @@
 import { Injectable } from '@nestjs/common';
+import { WalletService } from '../wallet/wallet.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    private userRepository: UserRepository,
+    private walletService: WalletService
+  ){}
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const toCreate = this.userRepository.create(createUserDto)
+    const created = await this.userRepository.save(toCreate)
+    if(created.id) await this.walletService.createAllWalletsForUser({userId:created.id})
+    return created;
   }
 
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    const queryUser = this.userRepository.find({
+      relations:['wallet'],
+      where:{id}
+    });
+    console.log(await queryUser)
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
