@@ -31,7 +31,7 @@ export class UsersService {
     if (queryExecuted.length === 0) {
       throw new HttpException({
         status: HttpStatus.NOT_FOUND,
-        error: `UserId ${id} nonexistent`
+        error: `User with #${id} ID nonexistent`
       }, HttpStatus.NOT_FOUND)
     }
 
