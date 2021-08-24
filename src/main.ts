@@ -6,7 +6,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { ValidationException } from './common/validation/validation.exception';
-import {covertErrorToObject} from './common/convertErrortoObject'
+import { covertErrorToObject } from './common/convertErrortoObject';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);

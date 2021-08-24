@@ -1,14 +1,13 @@
-
 export class ResponseUserDto {
-    name!: string;
-    lastName!: string;
-    alias!: string;
-    email!: string;
-    wallets!:walletsToResponseDto[]
+  name!: string;
+  lastName!: string;
+  alias!: string;
+  email!: string;
+  wallets!: walletsToResponseDto[];
 }
 
 export class walletsToResponseDto {
-    balance:number;
-    walletName:string;
-    text: string;
+  balance: number;
+  walletName: string;
+  text: string;
 }
