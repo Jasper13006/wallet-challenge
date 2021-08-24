@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { ResponseUserDto } from './dto/respons-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -18,8 +19,9 @@ export class UsersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.usersService.findOne(+id);
+  async findOne(@Param('id') id: string):Promise<ResponseUserDto> {
+    const response = await this.usersService.findOne(+id);
+    return response
   }
 
   @Patch(':id')
