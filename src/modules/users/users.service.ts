@@ -10,12 +10,13 @@ import { UserRepository } from './user.repository';
 export class UsersService {
   constructor(
     private userRepository: UserRepository,
-    private walletService: WalletService
-  ) { }
+    private walletService: WalletService,
+  ) {}
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const toCreate = this.userRepository.create(createUserDto)
-    const created = await this.userRepository.save(toCreate)
-    if (created.id) await this.walletService.createAllWalletsForUser({ userId: created.id })
+    const toCreate = this.userRepository.create(createUserDto);
+    const created = await this.userRepository.save(toCreate);
+    if (created.id)
+      await this.walletService.createAllWalletsForUser({ userId: created.id });
     return created;
   }
 
@@ -23,43 +24,37 @@ export class UsersService {
     const queryUser = this.userRepository.find({
       select: ['id', 'name', 'lastName', 'alias', 'email'],
       relations: ['wallet'],
-      where: { id }
-
+      where: { id },
     });
-    const queryExecuted = await queryUser
+    const queryExecuted = await queryUser;
 
     if (queryExecuted.length === 0) {
-      throw new HttpException({
-        status: HttpStatus.NOT_FOUND,
-        error: `User with #${id} ID nonexistent`
-      }, HttpStatus.NOT_FOUND)
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `User with #${id} ID nonexistent`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
     }
 
-    const userResponse = queryExecuted[0]
-    const { name, lastName, alias, email } = userResponse
+    const userResponse = queryExecuted[0];
+    const { name, lastName, alias, email } = userResponse;
     const wallets = userResponse.wallet.map((w) => {
       return {
         balance: w.balance,
         walletName: w.walletName,
-        text: `${w.balance} ${w.walletName}`
-      }
-    })
+        text: `${w.balance} ${w.walletName}`,
+      };
+    });
     const user = {
       id,
       name,
       lastName,
       alias,
       email,
-      wallets
-    }
+      wallets,
+    };
     return user;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
   }
 }

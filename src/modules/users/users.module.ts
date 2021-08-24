@@ -4,7 +4,11 @@ import { UsersController } from './users.controller';
 import { UserRepository } from './user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WalletModule } from '../wallet/wallet.module';
-import { MovementRepository, WalletRepository, WalletTypeRepository } from '../wallet/wallet.repository';
+import {
+  MovementRepository,
+  WalletRepository,
+  WalletTypeRepository,
+} from '../wallet/wallet.repository';
 import { WalletService } from '../wallet/wallet.service';
 
 @Module({
@@ -14,10 +18,10 @@ import { WalletService } from '../wallet/wallet.service';
       UserRepository,
       WalletRepository,
       WalletTypeRepository,
-      MovementRepository
+      MovementRepository,
     ]),
   ],
   controllers: [UsersController],
-  providers: [UsersService, WalletService]
+  providers: [UsersService, WalletService],
 })
-export class UsersModule { }
+export class UsersModule {}
