@@ -1,5 +1,5 @@
 import { User } from "src/modules/users/entities/user.entity";
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, OneToOne, OneToMany } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, OneToOne, OneToMany, JoinColumn } from "typeorm";
 import { Movement } from "./movement.entity";
 import { WalletType } from "./walletType.entity";
 
@@ -32,7 +32,7 @@ export class Wallet {
     @DeleteDateColumn()
     public deletedAt: Date | null;
 
-    @ManyToOne(() => User, (user) => user.id)
+    @ManyToOne(() => User, (user) => user.wallet)
     user: User;
 
     @OneToOne(() => WalletType, (walletType) => walletType.id)

@@ -30,6 +30,6 @@ export class User {
     @DeleteDateColumn()
     public deletedAt: Date | null;
 
-    @OneToMany(() => Wallet, (wallet) => wallet.userId)
-    wallets: Wallet[];
+    @OneToMany(() => Wallet, (wallet) => wallet.user)
+    wallet: Wallet[];
 }
