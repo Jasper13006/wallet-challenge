@@ -25,9 +25,7 @@ export class WalletService {
     return resolve;
   }
 
-  async depositOrExtraction(data: patchMovement)
-  // : Promise<patchResponse> 
-  {
+  async depositOrExtraction(data: patchMovement): Promise<patchResponse> {
     if (data.type === 'deposit') return await this.deposit(data)
     if (data.type === 'extraction') return await this.extraction(data)
   }
@@ -52,9 +50,7 @@ export class WalletService {
     }
   }
 
-  async extraction(data: patchMovement)
-  // : Promise<patchResponse> 
-  {
+  async extraction(data: patchMovement): Promise<patchResponse> {
     const wallet = await this.getWallet(data.walletId)
     const newBalance = Number(wallet.balance) - Number(data.amount)
     if (Math.sign(newBalance) === -1) {
