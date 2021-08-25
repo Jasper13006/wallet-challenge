@@ -6,7 +6,10 @@ export function createdocument(app: INestApplication): OpenAPIObject {
     .setTitle('Advertisement Service')
     .setDescription('Advertisement Service')
     .setVersion('1.0')
-    .addServer(`http://localhost:${process.env.SERVER_PORT}`, 'Local Enviroment')
+    .addServer(
+      `http://localhost:${process.env.SERVER_PORT}`,
+      'Local Enviroment',
+    )
     // .addServer(``, 'Beta')
     // .addServer(`http://`, 'Prod')
     .build();
